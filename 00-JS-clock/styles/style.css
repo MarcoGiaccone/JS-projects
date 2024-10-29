@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: azure;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-container {
+    height: 400px;
+    width: 400px;
+    background-color: rgb(33, 87, 97);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+#clock-header, #clock-body {
+    height: 40px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#clock-header-list  {
+    display: flex;
+}
+
+.clock-header-items {
+    display: flex;
+    font-size: 2em;
+    margin: 44px;
+    font-weight: 600;
+}
+
+.clock-items {
+    padding: 10px;
+    display: flex;
+    margin: 15px;
+    font-size: 2em;
+    font-weight: 600;
+    background-color: black;
+    color: white;
+    border-radius: 15%;
+}
+
+.clock-dots {
+    font-size: 2em;
+}
