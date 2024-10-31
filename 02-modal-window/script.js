@@ -3,7 +3,6 @@
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.close-modal');
-
 const buttons = document.querySelectorAll('.show-modal');
 
 function showModal() {
@@ -16,14 +15,13 @@ function hideModal() {
     overlay.classList.add('hidden');
 }
 
-
 //logica dei bottoni
 buttons.forEach(function (button) {
     button.addEventListener('click', showModal);
 });
 btnCloseModal.addEventListener('click', hideModal);
 document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
+    if (!modal.classList.contains('hidden') && event.key === 'Escape') {
         hideModal();
     }
 });
