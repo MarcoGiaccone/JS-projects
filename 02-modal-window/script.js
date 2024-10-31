@@ -16,11 +16,17 @@ function hideModal() {
     overlay.classList.add('hidden');
 }
 
+
+//logica dei bottoni
 buttons.forEach(function (button) {
     button.addEventListener('click', showModal);
 });
-
 btnCloseModal.addEventListener('click', hideModal);
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        hideModal();
+    }
+});
 
 
 
