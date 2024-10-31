@@ -170,7 +170,7 @@ main {
   color: #c7365f;
 }
 
-.hidden {
+.modal.hidden {
   display: none;
 }
 
@@ -178,7 +178,7 @@ main {
   font-size: 700;
 }
 
-#modal {
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -186,13 +186,13 @@ main {
   height: 100%;
   background-color: #25252588;
   backdrop-filter: blur(20px);
-  /* display: flex; */
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-#modal-header {
+.modal-header {
   text-align: center;
   z-index: 1;
   font-size: 5rem;

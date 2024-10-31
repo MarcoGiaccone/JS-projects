@@ -2,7 +2,8 @@
 
 //-----------------Selezione di elementi frequenti--------------------
 const main = document.querySelector('main');
-const modal = document.getElementById('modal');
+const modal = document.querySelector('.modal');
+let modalHeader = document.querySelector('.modal-header');
 
 //score dei giocatori
 const score0Element = document.getElementById('score--0');
@@ -70,27 +71,30 @@ function holdScore() {                                  //funzione hold
         score0Element.textContent = `${scores[0]}`;     //cambia il text content dell' elemento con il nuovo score
         currentScore0Element.textContent = '0';         //svuota il text content del current score
         switchPlayer();                                 //cambia giocatore
-
+        if (scores[0] >= 30) {
+            openModal(1);
+            newGame();
+        }
     } else {                                            //altrimenti
         scores[1] += currentScore;                      //fa la stessa cosa per il secondo giocatore
         score1Element.textContent = `${scores[1]}`;
         currentScore1Element.textContent = '0';
         switchPlayer();
-
+        if (scores[1] >= 30) {
+            openModal(2);
+            newGame();
+        }
     }
-
-    if (scores[0] >= 4 || scores[1] >= 4) {
-        newGame();
-        openModal();
-    }
+    console.log(scores);
 }
 
 function newGame() {
     scores = [0, 0];                                   //azzera i punteggi
     currentScore = 0;                                  //azzera il punteggio corrente
-    activePlayer = 1;
     document.getElementById('score--0').textContent = '0';//azzera il display
     document.getElementById('score--1').textContent = '0';//azzera il display
+    currentScore0Element.textContent = '0';
+    currentScore1Element.textContent = '0';
 }
 
 function closeModal(event) {
@@ -99,8 +103,9 @@ function closeModal(event) {
     }
 }
 
-function openModal() {
+function openModal(playerNumber) {
     modal.classList.remove('hidden');
+    modalHeader.textContent = `PLAYER ${playerNumber} WON!`;
 }
 
 //--------------------------MAIN------------------------------------
