@@ -1,10 +1,13 @@
 'use strict';
 
 //-----------------Selezione di elementi frequenti--------------------
+const main = document.querySelector('main');
+const modal = document.getElementById('modal');
 
 //score dei giocatori
 const score0Element = document.getElementById('score--0');
 const score1Element = document.getElementById('score--1');
+let currentScore = 0;
 
 //bottoni roll e hold
 const rollButton = document.querySelector('.btn--roll');
@@ -19,12 +22,20 @@ const currentScore0Element = document.querySelector('#current--0');
 const currentScore1Element = document.querySelector('#current--1');
 
 //giocatore attivo
-let activePlayer = Math.floor(Math.random() * 2);
+let activePlayer = 0;
 
 //scores
-const scores = [0, 0];
+let scores = [0, 0];
 
 //---------------------FUNZIONI------------------------------
+function switchPlayer() {
+    activePlayer === 0 ? (activePlayer = 1) : activePlayer = 0;
+    const players = document.querySelectorAll('.player');
+    players.forEach(function (player) {
+        player.classList.toggle('player--active');
+    })
+    currentScore = 0;
+}
 
 function rollDice() {
     let diceValue = Math.floor(Math.random() * 6 + 1);  //rolla il dado
@@ -33,47 +44,73 @@ function rollDice() {
 
     if (diceElement.classList.contains('hidden')) {     //se l immagine e' hidden
         diceElement.classList.remove('hidden');         //la rende visibile
+
     }
 
     if (diceValue != 1) {                               //se il dado non ha rollato 1 
         currentScore = currentScore + diceValue;        //aggiunge il valore allo score corrente
         document.getElementById(`current--${activePlayer}`).textContent = currentScore;//fa vedere lo score corrente
+
     } else {                                            //se il dado ha rollato 1,
-        if (activePlayer === 0) {
-            currentScore0Element.textContent = '0';
-            switchPlayer();
-        } else {
-            currentScore1Element.textContent = '0';
-            switchPlayer();
+        if (activePlayer === 0) {                       //se il player attivo e' il p0
+            currentScore0Element.textContent = '0';     //azzera il display del puntaggio corrente
+            switchPlayer();                             //cambia giocatore
+
+        } else {                                        //se il player attivo e' il p1
+            currentScore1Element.textContent = '0';     //azzera il display del puntaggio corrente
+            switchPlayer();                             //cambia giocatore          
+
         }
     }
 }
 
-function holdScore() {
-    if (activePlayer === 0) {
-        scores[0] += currentScore;
-        score0Element.textContent = `${scores[0]}`;
-        currentScore0Element.textContent = '0';
-        switchPlayer();
-    } else {
-        scores[1] += currentScore;
+function holdScore() {                                  //funzione hold
+    if (activePlayer === 0) {                           //se il giocatore e' il p0
+        scores[0] += currentScore;                      //aggiunge il current score all score totale
+        score0Element.textContent = `${scores[0]}`;     //cambia il text content dell' elemento con il nuovo score
+        currentScore0Element.textContent = '0';         //svuota il text content del current score
+        switchPlayer();                                 //cambia giocatore
+
+    } else {                                            //altrimenti
+        scores[1] += currentScore;                      //fa la stessa cosa per il secondo giocatore
         score1Element.textContent = `${scores[1]}`;
         currentScore1Element.textContent = '0';
         switchPlayer();
+
+    }
+
+    if (scores[0] >= 4 || scores[1] >= 4) {
+        newGame();
+        openModal();
     }
 }
 
-function switchPlayer() {
-    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-    currentScore = 0;
+function newGame() {
+    scores = [0, 0];                                   //azzera i punteggi
+    currentScore = 0;                                  //azzera il punteggio corrente
+    activePlayer = 1;
+    document.getElementById('score--0').textContent = '0';//azzera il display
+    document.getElementById('score--1').textContent = '0';//azzera il display
+}
+
+function closeModal(event) {
+    if (event.key === 'Escape') {
+        modal.classList.add('hidden');
+    }
+}
+
+function openModal() {
+    modal.classList.remove('hidden');
 }
 
 //--------------------------MAIN------------------------------------
-
-let currentScore = 0;
 diceElement.classList.add('hidden');
 rollButton.addEventListener('click', rollDice);
 holdButton.addEventListener('click', holdScore);
+newGameButton.addEventListener('click', newGame);
+document.addEventListener('keydown', closeModal);
+
+
 
 
 
