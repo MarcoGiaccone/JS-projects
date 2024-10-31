@@ -196,8 +196,10 @@ main {
   text-align: center;
   z-index: 1;
   font-size: 5rem;
+  color: rgb(218, 218, 218);
 }
 
 .modal-description {
   font-size: 2rem;
+  color: rgb(218, 218, 218);
 }

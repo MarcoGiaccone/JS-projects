@@ -45,22 +45,18 @@ function rollDice() {
 
     if (diceElement.classList.contains('hidden')) {     //se l immagine e' hidden
         diceElement.classList.remove('hidden');         //la rende visibile
-
     }
 
     if (diceValue != 1) {                               //se il dado non ha rollato 1 
         currentScore = currentScore + diceValue;        //aggiunge il valore allo score corrente
         document.getElementById(`current--${activePlayer}`).textContent = currentScore;//fa vedere lo score corrente
-
     } else {                                            //se il dado ha rollato 1,
         if (activePlayer === 0) {                       //se il player attivo e' il p0
             currentScore0Element.textContent = '0';     //azzera il display del puntaggio corrente
             switchPlayer();                             //cambia giocatore
-
         } else {                                        //se il player attivo e' il p1
             currentScore1Element.textContent = '0';     //azzera il display del puntaggio corrente
-            switchPlayer();                             //cambia giocatore          
-
+            switchPlayer();                             //cambia giocatore       
         }
     }
 }
