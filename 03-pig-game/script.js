@@ -29,13 +29,13 @@ let activePlayer = 0;
 let scores = [0, 0];
 
 //---------------------FUNZIONI------------------------------
-function switchPlayer() {
-    activePlayer === 0 ? (activePlayer = 1) : activePlayer = 0;
-    const players = document.querySelectorAll('.player');
+function switchPlayer() {                                               //cambia il giocatore attivo
+    activePlayer === 0 ? (activePlayer = 1) : activePlayer = 0;         //se il giocatorte attivo e' p0 lo cambia in p1 e viceversa
+    const players = document.querySelectorAll('.player');               //seleziona i nodi con classe 'player'
     players.forEach(function (player) {
-        player.classList.toggle('player--active');
+        player.classList.toggle('player--active');                      //fa il toggle ad entrambi della classe 'player--active'
     })
-    currentScore = 0;
+    currentScore = 0;                                                   //resetta lo score corrente
 }
 
 function rollDice() {
@@ -63,49 +63,48 @@ function rollDice() {
 
 function holdScore() {                                  //funzione hold
     if (activePlayer === 0) {                           //se il giocatore e' il p0
-        scores[0] += currentScore;                      //aggiunge il current score all score totale
+        scores[0] += currentScore;                      //aggiunge il current score al suo score totale
         score0Element.textContent = `${scores[0]}`;     //cambia il text content dell' elemento con il nuovo score
         currentScore0Element.textContent = '0';         //svuota il text content del current score
         switchPlayer();                                 //cambia giocatore
-        if (scores[0] >= 30) {
-            openModal(1);
-            newGame();
+        if (scores[0] >= 100) {                          //se lo score del giocatore  1 e' piu alto di x
+            openModal(1);                               //la modale annuncia la sua vittoria
+            newGame();                                  //e inizializza una nuova partita
         }
     } else {                                            //altrimenti
         scores[1] += currentScore;                      //fa la stessa cosa per il secondo giocatore
         score1Element.textContent = `${scores[1]}`;
         currentScore1Element.textContent = '0';
         switchPlayer();
-        if (scores[1] >= 30) {
+        if (scores[1] >= 100) {
             openModal(2);
             newGame();
         }
     }
-    console.log(scores);
 }
 
 function newGame() {
-    scores = [0, 0];                                   //azzera i punteggi
-    currentScore = 0;                                  //azzera il punteggio corrente
-    document.getElementById('score--0').textContent = '0';//azzera il display
-    document.getElementById('score--1').textContent = '0';//azzera il display
-    currentScore0Element.textContent = '0';
+    scores = [0, 0];                                        //azzera i punteggi
+    currentScore = 0;                                       //azzera il punteggio corrente
+    document.getElementById('score--0').textContent = '0';  //azzera gli score totali
+    document.getElementById('score--1').textContent = '0';
+    currentScore0Element.textContent = '0';                 //azzera il display degli score correnti 
     currentScore1Element.textContent = '0';
 }
 
-function closeModal(event) {
-    if (event.key === 'Escape') {
-        modal.classList.add('hidden');
+function closeModal(event) {                                //chiude la modale di fine partita
+    if (event.key === 'Escape') {                           //se l' evento e' la presisone del tasto esc
+        modal.classList.add('hidden');                      //nasconde la modale
     }
 }
 
-function openModal(playerNumber) {
-    modal.classList.remove('hidden');
-    modalHeader.textContent = `PLAYER ${playerNumber} WON!`;
+function openModal(playerNumber) {                              //apre la modale a fine partita
+    modal.classList.remove('hidden');                           //fa comparire la modale
+    modalHeader.textContent = `PLAYER ${playerNumber} WON!`;    //annuncia il player vincitore
 }
 
 //--------------------------MAIN------------------------------------
-diceElement.classList.add('hidden');
+diceElement.classList.add('hidden');                            //event listeners sui vari buttons
 rollButton.addEventListener('click', rollDice);
 holdButton.addEventListener('click', holdScore);
 newGameButton.addEventListener('click', newGame);
